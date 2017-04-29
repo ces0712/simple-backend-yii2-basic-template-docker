@@ -1,0 +1,14 @@
+config/local.php
+config/console-local.php
+
+# Docker compose file
+/docker-compose.yml
+
+# Composer vendor dir
+/vendor/
+
+# Enviroment Docker vars 
+.env
+
+*.swp
+.vimrc

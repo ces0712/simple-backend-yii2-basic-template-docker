@@ -1,0 +1,57 @@
+version: '2'
+services:
+
+    backend:
+        build: ./
+        volumes:
+            - ./:/var/www/html/
+        links:
+            - database
+        environment:
+            ENABLE_ENV_FILE: 1
+            ENABLE_LOCALCONF: 1
+            API_TOKEN: "9b611abca4ad1bbb4bec61e01de7d60e49447fd3"
+
+
+        # For Apache based image:
+        ports:
+            - "8080:80"
+
+        # For FPM/HHVM based image:
+        #expose:
+        #    - "9000"
+
+        # Autostart at boottime
+        #restart: always
+
+        # Send log output to syslog
+        #logging:
+        #    driver: "syslog"
+        #    options:
+        #        tag: "docker-web"
+
+    # For FPM/HHVM based image:
+    #nginx:
+    #    build: ./nginx
+    #    restart: always
+    #    ports:
+    #        - "8080:80"
+    #    links:
+    #        - web
+    #    volumes_from:
+    #        - web
+
+    database:
+        image: postgres:9.6
+        ports:
+            - "5432:5432"
+        expose:
+            - "5432"
+        environment:
+            POSTGRES_DB: forecast
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+
+        # Autostart at boottime
+        #restart: always
+
